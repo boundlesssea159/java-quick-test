@@ -18,8 +18,23 @@ import java.util.*;
 
 class RealWorldApplication {
     static List<String> slugify(List<String> names) {
-        // TODO
-        return new ArrayList<>();
+        // Solution1:
+        // return names.stream().map(e->e.trim().replace("'", "").toLowerCase().replaceAll("\\s+", "-")).collect(Collectors.toList());
+
+        // Solution2:
+        Map<String,Integer> appearenceNums = new HashMap<>();
+        List<String> result = new ArrayList<>();
+        for(String name:names){
+            String newName = name.trim().replace("'", "").toLowerCase().replaceAll("\\s+", "-");
+            appearenceNums.put(newName, Optional.ofNullable(appearenceNums.get(newName)).orElse(0)+1);
+            if (appearenceNums.get(newName)==1){
+                result.add(newName);
+            }else{
+                result.remove(newName);
+                result.add(newName.concat("-2"));
+            }
+        }
+        return result;
     }
 
     public static void main(String[] args) {
@@ -39,6 +54,7 @@ class RealWorldApplication {
         );
 
         System.out.println(slugify(crayola1990));
+        // System.out.println(crayola1990);
     }
 }
 
