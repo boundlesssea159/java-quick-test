@@ -19,19 +19,21 @@ import java.util.*;
 class RealWorldApplication {
     static List<String> slugify(List<String> names) {
         // Solution1:
-        // return names.stream().map(e->e.trim().replace("'", "").toLowerCase().replaceAll("\\s+", "-")).collect(Collectors.toList());
+        // return names.stream().map(e->e.trim().replace("'",
+        // "").toLowerCase().replaceAll("\\s+", "-")).collect(Collectors.toList());
 
         // Solution2:
-        Map<String,Integer> appearenceNums = new HashMap<>();
+        Map<String, Integer> appearenceNums = new HashMap<>();
         List<String> result = new ArrayList<>();
-        for(String name:names){
+        for (String name : names) {
             String newName = name.trim().replace("'", "").toLowerCase().replaceAll("\\s+", "-");
-            appearenceNums.put(newName, Optional.ofNullable(appearenceNums.get(newName)).orElse(0)+1);
-            if (appearenceNums.get(newName)==1){
+            appearenceNums.put(newName, Optional.ofNullable(appearenceNums.get(newName)).orElse(0) + 1);
+            if (appearenceNums.get(newName) == 1) {
                 result.add(newName);
-            }else{
+            } else {
                 result.remove(newName);
-                result.add(newName.concat("-2"));
+                Integer num = appearenceNums.get(newName);
+                result.add(newName.concat("-" + num.toString()));
             }
         }
         return result;
@@ -39,27 +41,27 @@ class RealWorldApplication {
 
     public static void main(String[] args) {
         List<String> crayola1990 = List.of(
-            "Scarlet",
-            "Sunset Orange",
-            "Macaroni and Cheese",
-            "Robin's Egg Blue",
-            "  Wild Blue Yonder ",
-            "Purple Mountains' Majesty",
-            "Tickle Me Pink",
-            "Pink  Sherbert",
-            "Jazzberry Jam",
-            "Granny Smith Apple",
-            "Mango Tango",
-            "TICKLE ME PINK"
-        );
+                "Scarlet",
+                "Sunset Orange",
+                "Macaroni and Cheese",
+                "Robin's Egg Blue",
+                "  Wild Blue Yonder ",
+                "Purple Mountains' Majesty",
+                "Tickle Me Pink",
+                "Pink  Sherbert",
+                "Jazzberry Jam",
+                "Granny Smith Apple",
+                "Mango Tango",
+                "TICKLE ME PINK");
 
         System.out.println(slugify(crayola1990));
         // System.out.println(crayola1990);
     }
 }
 
-
 // ***** HINTS *******
-// Remember strings are immutable but the value of a variable can be adjusted as often as needed.
-// Take advantage of the methods your language gives you on strings (lowercase, trim, replace, split, join).
+// Remember strings are immutable but the value of a variable can be adjusted as
+// often as needed.
+// Take advantage of the methods your language gives you on strings (lowercase,
+// trim, replace, split, join).
 // Get the logic working for ONE name first, then loop over the list.
