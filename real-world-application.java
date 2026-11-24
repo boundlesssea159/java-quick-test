@@ -31,8 +31,14 @@ class RealWorldApplication {
             if (appearenceNums.get(newName) == 1) {
                 result.add(newName);
             } else {
-                result.remove(newName);
                 Integer num = appearenceNums.get(newName);
+                if (num - 1 == 1) {
+                    result.remove(newName);
+                } else {
+                    Integer latestNum = num - 1;
+                    result.remove(newName.concat("-" + latestNum.toString()));
+                }
+
                 result.add(newName.concat("-" + num.toString()));
             }
         }
@@ -52,6 +58,7 @@ class RealWorldApplication {
                 "Jazzberry Jam",
                 "Granny Smith Apple",
                 "Mango Tango",
+                "TICKLE ME PINK",
                 "TICKLE ME PINK");
 
         System.out.println(slugify(crayola1990));
