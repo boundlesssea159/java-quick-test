@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 class ArraysExercise {
     public static void main(String[] args) {
@@ -19,7 +20,14 @@ class ArraysExercise {
         //    Expected: 3 contacts (Mark, Darryl, Tom)
 
         // 3. Using instructors, create a list named instructorEmails that contains only their email addresses.
-        //    Expected: mark@boisecodeworks.com, darryl@boisecodeworks.com, tom@boisecodeworks.com
+        //    Expe
+        // cted: mark@boisecodeworks.com, darryl@boisecodeworks.com, tom@boisecodeworks.com
+
+        System.out.printf("size: %d%n%n",contacts.size());
+        List<Contact> instructors = contacts.stream().filter(c->c.title() == "instructor").collect(Collectors.toList());
+        System.out.printf("instructors: %s%n%n", instructors);
+        List<String> instructorEmails = instructors.stream().map(c->c.email()).collect(Collectors.toList());
+        System.out.printf("instructorEmails:%s%n%n", instructorEmails);
     }
 }
 
